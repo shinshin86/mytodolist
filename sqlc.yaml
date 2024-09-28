@@ -1,0 +1,16 @@
+version: "2"
+plugins:
+- name: ts
+  wasm:
+    url: file://plugin.wasm
+    sha256: 63cbb65c4c4744f29547033fbb30b930dadd75dee854b3a011829692db09cb35
+sql:
+- schema: "db/schema.sql"
+  queries: "db/query.sql"
+  engine: "sqlite"
+  codegen:
+  - plugin: ts
+    out: src/db
+    options:
+      runtime: node
+      driver: neverchange
