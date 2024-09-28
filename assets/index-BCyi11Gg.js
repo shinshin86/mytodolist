@@ -423,7 +423,7 @@ SELECT id, project_id, parent_id, text, completed, deleted, created_at FROM todo
 UPDATE todos SET completed = NOT completed WHERE id = ?`;async function LB(e,t){await e.execute(DB,[t.id])}const NB=`-- name: UpdateTodoInDB :exec
 UPDATE todos SET text = ? WHERE id = ?`;async function jB(e,t){await e.execute(NB,[t.text,t.id])}const zB=`-- name: DeleteTodoInDB :exec
 UPDATE todos SET deleted = 1 WHERE id = ?`;async function Jb(e,t){await e.execute(zB,[t.id])}const $B=`-- name: DeleteProjectTodosInDB :exec
-UPDATE todos SET deleted = 1 WHERE project_id = ?`;async function BB(e,t){await e.execute($B,[t.projectId])}let Ht=null;const VB="todo";async function WB(){return Ht||(Ht=new wB(VB),Ht.addMigrations([{version:1,up:async e=>{await e.execute(`
+UPDATE todos SET deleted = 1 WHERE project_id = ?`;async function BB(e,t){await e.execute($B,[t.projectId])}let Ht=null;const VB="mytodolist";async function WB(){return Ht||(Ht=new wB(VB),Ht.addMigrations([{version:1,up:async e=>{await e.execute(`
           CREATE TABLE IF NOT EXISTS projects (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
