@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && npm run copy:coi",
+    "copy:coi": "cp node_modules/coi-serviceworker/coi-serviceworker.js dist/assets",
     "lint": "eslint .",
     "preview": "vite preview",
     "db:gen": "sqlc generate",
@@ -18,6 +19,7 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@sqlite.org/sqlite-wasm": "^3.46.1-build2",
+    "coi-serviceworker": "^0.1.7",
     "framer-motion": "^11.3.31",
     "neverchange": "^0.0.4",
     "react": "^18.3.1",
