@@ -7,7 +7,7 @@ const htmlPlugin = (): Plugin => {
     transformIndexHtml(html: string) {
       return html.replace(
         '</title>',
-        `</title>\n    <script src="/mytodolist/assets/coi-serviceworker.js"></script>`,
+        `</title>\n    <script src="/mytodolist/coi-serviceworker.js"></script>`,
       );
     },
   };
