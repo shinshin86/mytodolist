@@ -37,7 +37,10 @@ export function App() {
   const [projects, setProjects] = useState<any[]>([]);
   const [todos, setTodos] = useState<any[]>([]);
   const [selectedProjectId, setSelectedProjectId] = useState<number | null>(
-    null,
+    () => {
+      const storedProjectId = localStorage.getItem('selectedProjectId');
+      return storedProjectId ? Number(storedProjectId) : null;
+    },
   );
 
   // colors
@@ -73,9 +76,18 @@ export function App() {
     await addProject(name);
     const projects = await getProjects();
     const newProject = projects.find((project) => project.name === name);
-    setSelectedProjectId(newProject?.id || '');
+    handleSelectProjectId(newProject?.id || null);
     fetchProjects();
   };
+
+  const handleSelectProjectId = useCallback((projectId: number | null) => {
+    setSelectedProjectId(projectId);
+    if (projectId !== null) {
+      localStorage.setItem('selectedProjectId', String(projectId));
+    } else {
+      localStorage.removeItem('selectedProjectId');
+    }
+  }, []);
 
   const handleDeleteProject = async (id: number) => {
     await deleteProject(id);
@@ -179,7 +191,9 @@ export function App() {
                 <Select
                   placeholder="Select project"
                   value={selectedProjectId || ''}
-                  onChange={(e) => setSelectedProjectId(Number(e.target.value))}
+                  onChange={(e) =>
+                    handleSelectProjectId(Number(e.target.value))
+                  }
                   width="200px"
                   mr={2}
                 >
@@ -244,7 +258,7 @@ export function App() {
                       projects={projects}
                       selectedProjectId={selectedProjectId}
                       onDelete={handleDeleteProject}
-                      onSelect={setSelectedProjectId}
+                      onSelect={handleSelectProjectId}
                     />
                   </Box>
                 </VStack>
