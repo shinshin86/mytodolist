@@ -2,8 +2,8 @@ version: "2"
 plugins:
 - name: ts
   wasm:
-    url: file://plugin.wasm
-    sha256: 63cbb65c4c4744f29547033fbb30b930dadd75dee854b3a011829692db09cb35
+    url: https://github.com/shinshin86/sqlc-gen-typescript-for-neverchange/releases/download/v0.0.1/sqlc-gen-typescript-for-neverchange_0.0.1.wasm
+    sha256: 224c6494cc2f8383ae79a2ca4f9d3c5ce0ebacbf6df161d98c414bdfaf1db82d
 sql:
 - schema: "db/schema.sql"
   queries: "db/query.sql"
