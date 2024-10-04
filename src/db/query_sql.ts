@@ -6,7 +6,7 @@ export const createProjectInDBQuery = `-- name: CreateProjectInDB :exec
 INSERT INTO projects (name) VALUES (?)`;
 
 export interface CreateProjectInDBArgs {
-  name: any;
+  name: string;
 }
 
 export async function createProjectInDB(
@@ -20,9 +20,9 @@ export const getProjectsInDBQuery = `-- name: GetProjectsInDB :many
 SELECT id, name, created_at FROM projects ORDER BY created_at DESC`;
 
 export interface GetProjectsInDBRow {
-  id: any;
-  name: any;
-  createdAt: any | null;
+  id: number;
+  name: string;
+  createdAt: Date | null;
 }
 
 export async function getProjectsInDB(
@@ -35,13 +35,13 @@ export const getProjectInDBQuery = `-- name: GetProjectInDB :one
 SELECT id, name, created_at FROM projects WHERE id = ? LIMIT 1`;
 
 export interface GetProjectInDBArgs {
-  id: any;
+  id: number;
 }
 
 export interface GetProjectInDBRow {
-  id: any;
-  name: any;
-  createdAt: any | null;
+  id: number;
+  name: string;
+  createdAt: Date | null;
 }
 
 export async function getProjectInDB(
@@ -56,8 +56,8 @@ export const updateProjectInDBQuery = `-- name: UpdateProjectInDB :exec
 UPDATE projects SET name = ? WHERE id = ?`;
 
 export interface UpdateProjectInDBArgs {
-  name: any;
-  id: any;
+  name: string;
+  id: number;
 }
 
 export async function updateProjectInDB(
@@ -71,7 +71,7 @@ export const deleteProjectInDBQuery = `-- name: DeleteProjectInDB :exec
 DELETE FROM projects WHERE id = ?`;
 
 export interface DeleteProjectInDBArgs {
-  id: any;
+  id: number;
 }
 
 export async function deleteProjectInDB(
@@ -85,8 +85,8 @@ export const createTodoInDBQuery = `-- name: CreateTodoInDB :exec
 INSERT INTO todos (text, project_id) VALUES (?, ?)`;
 
 export interface CreateTodoInDBArgs {
-  text: any;
-  projectId: any | null;
+  text: string;
+  projectId: number | null;
 }
 
 export async function createTodoInDB(
@@ -100,9 +100,9 @@ export const createChildTodoInDBQuery = `-- name: CreateChildTodoInDB :exec
 INSERT INTO todos (text, project_id, parent_id) VALUES (?, ?, ?)`;
 
 export interface CreateChildTodoInDBArgs {
-  text: any;
-  projectId: any | null;
-  parentId: any | null;
+  text: string;
+  projectId: number | null;
+  parentId: number | null;
 }
 
 export async function createChildTodoInDB(
@@ -120,17 +120,17 @@ export const getTodosInDBQuery = `-- name: GetTodosInDB :many
 SELECT id, project_id, parent_id, text, completed, deleted, created_at FROM todos WHERE project_id = ? AND deleted = 0 ORDER BY created_at DESC`;
 
 export interface GetTodosInDBArgs {
-  projectId: any | null;
+  projectId: number | null;
 }
 
 export interface GetTodosInDBRow {
-  id: any;
-  projectId: any | null;
-  parentId: any | null;
-  text: any;
-  completed: any;
-  deleted: any;
-  createdAt: any | null;
+  id: number;
+  projectId: number | null;
+  parentId: number | null;
+  text: string;
+  completed: boolean;
+  deleted: boolean;
+  createdAt: Date | null;
 }
 
 export async function getTodosInDB(
@@ -144,18 +144,18 @@ export const getChildTodosInDBQuery = `-- name: GetChildTodosInDB :many
 SELECT id, project_id, parent_id, text, completed, deleted, created_at FROM todos WHERE project_id = ? AND parent_id = ? AND deleted = 0 ORDER BY created_at DESC`;
 
 export interface GetChildTodosInDBArgs {
-  projectId: any | null;
-  parentId: any | null;
+  projectId: number | null;
+  parentId: number | null;
 }
 
 export interface GetChildTodosInDBRow {
-  id: any;
-  projectId: any | null;
-  parentId: any | null;
-  text: any;
-  completed: any;
-  deleted: any;
-  createdAt: any | null;
+  id: number;
+  projectId: number | null;
+  parentId: number | null;
+  text: string;
+  completed: boolean;
+  deleted: boolean;
+  createdAt: Date | null;
 }
 
 export async function getChildTodosInDB(
@@ -172,17 +172,17 @@ export const getTodoInDBQuery = `-- name: GetTodoInDB :one
 SELECT id, project_id, parent_id, text, completed, deleted, created_at FROM todos WHERE id = ? LIMIT 1`;
 
 export interface GetTodoInDBArgs {
-  id: any;
+  id: number;
 }
 
 export interface GetTodoInDBRow {
-  id: any;
-  projectId: any | null;
-  parentId: any | null;
-  text: any;
-  completed: any;
-  deleted: any;
-  createdAt: any | null;
+  id: number;
+  projectId: number | null;
+  parentId: number | null;
+  text: string;
+  completed: boolean;
+  deleted: boolean;
+  createdAt: Date | null;
 }
 
 export async function getTodoInDB(
@@ -197,7 +197,7 @@ export const toggleTodoInDBQuery = `-- name: ToggleTodoInDB :exec
 UPDATE todos SET completed = NOT completed WHERE id = ?`;
 
 export interface ToggleTodoInDBArgs {
-  id: any;
+  id: number;
 }
 
 export async function toggleTodoInDB(
@@ -211,8 +211,8 @@ export const updateTodoInDBQuery = `-- name: UpdateTodoInDB :exec
 UPDATE todos SET text = ? WHERE id = ?`;
 
 export interface UpdateTodoInDBArgs {
-  text: any;
-  id: any;
+  text: string;
+  id: number;
 }
 
 export async function updateTodoInDB(
@@ -226,9 +226,9 @@ export const moveTodoInDBQuery = `-- name: MoveTodoInDB :exec
 UPDATE todos SET project_id = ?, parent_id = ? WHERE id = ?`;
 
 export interface MoveTodoInDBArgs {
-  projectId: any | null;
-  parentId: any | null;
-  id: any;
+  projectId: number | null;
+  parentId: number | null;
+  id: number;
 }
 
 export async function moveTodoInDB(
@@ -242,7 +242,7 @@ export const deleteTodoInDBQuery = `-- name: DeleteTodoInDB :exec
 UPDATE todos SET deleted = 1 WHERE id = ?`;
 
 export interface DeleteTodoInDBArgs {
-  id: any;
+  id: number;
 }
 
 export async function deleteTodoInDB(
@@ -256,7 +256,7 @@ export const deleteProjectTodosInDBQuery = `-- name: DeleteProjectTodosInDB :exe
 UPDATE todos SET deleted = 1 WHERE project_id = ?`;
 
 export interface DeleteProjectTodosInDBArgs {
-  projectId: any | null;
+  projectId: number | null;
 }
 
 export async function deleteProjectTodosInDB(
