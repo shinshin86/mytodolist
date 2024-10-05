@@ -2,18 +2,25 @@
 
 import { NeverChangeDB } from 'neverchange';
 
-export const createProjectInDBQuery = `-- name: CreateProjectInDB :exec
-INSERT INTO projects (name) VALUES (?)`;
+export const createProjectInDBQuery = `-- name: CreateProjectInDB :one
+INSERT INTO projects (name) VALUES (?) RETURNING id, name, created_at`;
 
 export interface CreateProjectInDBArgs {
   name: string;
 }
 
+export interface CreateProjectInDBRow {
+  id: number;
+  name: string;
+  createdAt: Date | null;
+}
+
 export async function createProjectInDB(
   db: NeverChangeDB,
   args: CreateProjectInDBArgs,
-): Promise<void> {
-  await db.execute(createProjectInDBQuery, [args.name]);
+): Promise<CreateProjectInDBRow | null> {
+  const result = await db.query(createProjectInDBQuery, [args.name]);
+  return result[0];
 }
 
 export const getProjectsInDBQuery = `-- name: GetProjectsInDB :many

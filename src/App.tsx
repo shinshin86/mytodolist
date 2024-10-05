@@ -37,6 +37,8 @@ import {
   addTodo,
 } from './db';
 import { SettingDialog } from './SettingDialog';
+import { getUserSettings } from './userSettings';
+import { format } from 'date-fns';
 
 export function App() {
   const [isDbReady, setIsDbReady] = useState(false);
@@ -50,10 +52,29 @@ export function App() {
     },
   );
 
+  const today = format(new Date(), 'yyyy-MM-dd');
+
   const fetchProjects = useCallback(async () => {
     try {
       const fetchedProjects = await getProjects();
       setProjects(fetchedProjects);
+
+      // check for autoCreateDailyProject
+      const settings = getUserSettings();
+      if (settings.autoCreateDailyProject) {
+        const todayProjectExists = fetchedProjects.some(
+          (project) => project.name === today,
+        );
+
+        if (!todayProjectExists) {
+          const newProjectId = await addProject(today);
+          fetchProjects();
+
+          if (newProjectId) {
+            handleSelectProjectId(Number(newProjectId.id));
+          }
+        }
+      }
     } catch (err) {
       console.error('Failed to fetch projects:', err);
       setError(

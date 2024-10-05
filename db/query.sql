@@ -1,5 +1,5 @@
--- name: CreateProjectInDB :exec
-INSERT INTO projects (name) VALUES (?);
+-- name: CreateProjectInDB :one
+INSERT INTO projects (name) VALUES (?) RETURNING *;
 
 -- name: GetProjectsInDB :many
 SELECT * FROM projects ORDER BY created_at DESC;

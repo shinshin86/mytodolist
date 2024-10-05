@@ -3,6 +3,7 @@ import { NeverChangeDB } from 'neverchange';
 import {
   createChildTodoInDB,
   createProjectInDB,
+  CreateProjectInDBRow,
   createTodoInDB,
   deleteProjectInDB,
   deleteProjectTodosInDB,
@@ -56,11 +57,13 @@ export async function initDb() {
   return db;
 }
 
-export async function addProject(name: string) {
+export async function addProject(
+  name: string,
+): Promise<CreateProjectInDBRow | null> {
   try {
-    await createProjectInDB(db, { name });
+    const newProject = await createProjectInDB(db, { name });
     console.log('Project added successfully');
-    return;
+    return newProject;
   } catch (error) {
     console.error('Failed to add project:', error);
     throw error;
