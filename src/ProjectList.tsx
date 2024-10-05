@@ -58,7 +58,6 @@ export function ProjectList({
           <HStack
             key={project.id}
             p={2}
-            bg={selectedProjectId === project.id ? 'blue.100' : 'gray.100'}
             borderRadius="md"
             justifyContent="space-between"
           >
