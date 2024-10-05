@@ -26,11 +26,7 @@ interface ProjectListProps {
   onDelete: (id: number) => void;
 }
 
-export function ProjectList({
-  projects,
-  selectedProjectId,
-  onDelete,
-}: ProjectListProps) {
+export function ProjectList({ projects, onDelete }: ProjectListProps) {
   const [projectToDelete, setProjectToDelete] = useState<Project | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef<HTMLButtonElement>(null);
