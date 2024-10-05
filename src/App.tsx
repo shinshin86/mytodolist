@@ -20,6 +20,7 @@ import {
   IconButton,
   MenuList,
 } from '@chakra-ui/react';
+import theme from './theme';
 import { AddProject } from './AddProject';
 import { AddTodo } from './AddTodo';
 import { TodoList } from './TodoList';
@@ -48,11 +49,6 @@ export function App() {
       return storedProjectId ? Number(storedProjectId) : null;
     },
   );
-
-  // colors
-  const bgColor = useColorModeValue('gray.50', 'gray.900');
-  const headerBgColor = useColorModeValue('white', 'gray.800');
-  const borderColor = useColorModeValue('gray.200', 'gray.700');
 
   const fetchProjects = useCallback(async () => {
     try {
@@ -181,15 +177,9 @@ export function App() {
   }
 
   return (
-    <ChakraProvider>
-      <Box minHeight="100vh" bg={bgColor}>
-        <Box
-          bg={headerBgColor}
-          boxShadow="sm"
-          position="sticky"
-          top={0}
-          zIndex={1}
-        >
+    <ChakraProvider theme={theme}>
+      <Box minHeight="100vh">
+        <Box boxShadow="sm" position="sticky" top={0} zIndex={1}>
           <Container maxWidth="container.lg" py={4}>
             <Flex justifyContent="space-between" alignItems="center">
               <Heading size="lg">My TODO List</Heading>
@@ -242,12 +232,7 @@ export function App() {
                       projectId={selectedProjectId}
                     />
                   )}
-                  <Box
-                    borderWidth={1}
-                    borderColor={borderColor}
-                    borderRadius="md"
-                    overflow="hidden"
-                  >
+                  <Box borderWidth={1} borderRadius="md" overflow="hidden">
                     <TodoList
                       todos={todos}
                       onToggle={handleToggleTodo}
@@ -266,12 +251,7 @@ export function App() {
                       handleAddProject(name);
                     }}
                   />
-                  <Box
-                    borderWidth={1}
-                    borderColor={borderColor}
-                    borderRadius="md"
-                    overflow="hidden"
-                  >
+                  <Box borderWidth={1} borderRadius="md" overflow="hidden">
                     <ProjectList
                       projects={projects}
                       selectedProjectId={selectedProjectId}

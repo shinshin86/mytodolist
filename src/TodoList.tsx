@@ -98,7 +98,7 @@ function TodoItem({
       pl={level > 0 ? 4 : 0}
       mb={2}
     >
-      <HStack spacing={2} bg="white" p={2} borderRadius="md" boxShadow="sm">
+      <HStack spacing={2} p={2} borderRadius="md" boxShadow="sm">
         {(todo.children && todo.children.length > 0) || level > 0 ? (
           <Button
             size="sm"
@@ -235,7 +235,7 @@ export function TodoList({
 
   if (selectedProjectId === null) {
     return (
-      <Box p={4} bg="gray.100" borderRadius="md">
+      <Box p={4} borderRadius="md">
         <Text>Please select a project to view and manage todos.</Text>
       </Box>
     );
@@ -257,7 +257,7 @@ export function TodoList({
           />
         ))
       ) : (
-        <Box p={4} bg="gray.100" borderRadius="md">
+        <Box p={4} borderRadius="md">
           <Text>
             No todos found for this project. Start by adding a new todo!
           </Text>

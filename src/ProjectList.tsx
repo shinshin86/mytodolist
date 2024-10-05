@@ -50,7 +50,7 @@ export function ProjectList({
   return (
     <VStack align="stretch" spacing={4} width="100%">
       {projects.length === 0 ? (
-        <Box p={4} bg="gray.100" borderRadius="md">
+        <Box p={4} borderRadius="md">
           <Text>No projects found. Start by creating a new project!</Text>
         </Box>
       ) : (
