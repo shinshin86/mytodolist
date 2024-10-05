@@ -14,6 +14,11 @@ import {
   Container,
   useColorModeValue,
   Text,
+  Menu,
+  MenuButton,
+  Avatar,
+  IconButton,
+  MenuList,
 } from '@chakra-ui/react';
 import { AddProject } from './AddProject';
 import { AddTodo } from './AddTodo';
@@ -30,6 +35,7 @@ import {
   deleteProject,
   addTodo,
 } from './db';
+import { SettingDialog } from './SettingDialog';
 
 export function App() {
   const [isDbReady, setIsDbReady] = useState(false);
@@ -203,6 +209,18 @@ export function App() {
                     </option>
                   ))}
                 </Select>
+                <Menu>
+                  <MenuButton
+                    as={IconButton}
+                    aria-label="User menu"
+                    icon={<Avatar size="sm" />}
+                    variant="ghost"
+                    ml={4}
+                  />
+                  <MenuList>
+                    <SettingDialog />
+                  </MenuList>
+                </Menu>
               </Flex>
             </Flex>
           </Container>
