@@ -167,3 +167,31 @@ export async function deleteProject(id: number) {
     throw error;
   }
 }
+
+export async function exportCSV() {
+  try {
+    const projectsCSVContent = await db.dumpTableToCSV('projects');
+    const todosCSVContent = await db.dumpTableToCSV('todos');
+
+    // download projects data
+    const projectsBlob = new Blob([projectsCSVContent], { type: 'text/csv' });
+    const projectsUrl = URL.createObjectURL(projectsBlob);
+    const projectsLink = document.createElement('a');
+    projectsLink.href = projectsUrl;
+    projectsLink.download = 'projects_data.csv';
+    projectsLink.click();
+
+    // download todos data
+    const todosBlob = new Blob([todosCSVContent], { type: 'text/csv' });
+    const todosUrl = URL.createObjectURL(todosBlob);
+    const todosLink = document.createElement('a');
+    todosLink.href = todosUrl;
+    todosLink.download = 'todos_data.csv';
+    todosLink.click();
+
+    URL.revokeObjectURL(projectsUrl);
+    URL.revokeObjectURL(todosUrl);
+  } catch (error) {
+    console.error('Failed to export CSV:', error);
+  }
+}

@@ -18,7 +18,10 @@ import {
   Avatar,
   IconButton,
   MenuList,
+  MenuItem,
+  Button,
 } from '@chakra-ui/react';
+import { DownloadIcon } from '@chakra-ui/icons';
 import theme from './theme';
 import { AddProject } from './AddProject';
 import { AddTodo } from './AddTodo';
@@ -34,7 +37,9 @@ import {
   deleteTodo,
   deleteProject,
   addTodo,
+  exportCSV,
 } from './db';
+import { ExportDialog } from './ExportDialog';
 import { SettingDialog } from './SettingDialog';
 import { getUserSettings } from './userSettings';
 import { format } from 'date-fns';
@@ -50,6 +55,7 @@ export function App() {
       return storedProjectId ? Number(storedProjectId) : null;
     },
   );
+  const [isExportDialogOpen, setExportDialogOpen] = useState(false);
 
   const today = format(new Date(), 'yyyy-MM-dd');
 
@@ -228,6 +234,12 @@ export function App() {
                     ml={4}
                   />
                   <MenuList>
+                    <MenuItem
+                      icon={<DownloadIcon />}
+                      onClick={() => setExportDialogOpen(true)}
+                    >
+                      Export CSV
+                    </MenuItem>
                     <SettingDialog />
                   </MenuList>
                 </Menu>
@@ -285,6 +297,14 @@ export function App() {
           </Tabs>
         </Container>
       </Box>
+      <ExportDialog
+        isOpen={isExportDialogOpen}
+        onClose={() => setExportDialogOpen(false)}
+        onExport={() => {
+          exportCSV();
+          setExportDialogOpen(false);
+        }}
+      />
     </ChakraProvider>
   );
 }
