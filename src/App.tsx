@@ -19,7 +19,6 @@ import {
   IconButton,
   MenuList,
   MenuItem,
-  Button,
 } from '@chakra-ui/react';
 import { DownloadIcon, SettingsIcon } from '@chakra-ui/icons';
 import theme from './theme';
@@ -247,7 +246,6 @@ export function App() {
                     >
                       Settings
                     </MenuItem>
-                    <SettingDialog />
                   </MenuList>
                 </Menu>
               </Flex>
