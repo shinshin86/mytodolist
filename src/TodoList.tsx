@@ -121,7 +121,7 @@ function TodoItem({
             value={editText}
             onChange={(e) => setEditText(e.target.value)}
             onBlur={handleUpdate}
-            onKeyPress={(e) => e.key === 'Enter' && handleUpdate()}
+            onKeyDown={(e) => e.key === 'Enter' && handleUpdate()}
           />
         ) : (
           <Text flex={1} onClick={() => setIsEditing(true)}>
@@ -167,6 +167,7 @@ function TodoItem({
             placeholder="New subtask"
             value={newChildText}
             onChange={(e) => setNewChildText(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleAddChild()}
           />
           <Button onClick={handleAddChild}>Add</Button>
           <Button onClick={() => setIsAddingChild(false)}>Cancel</Button>
