@@ -42,6 +42,7 @@ import { ExportDialog } from './ExportDialog';
 import { SettingDialog } from './SettingDialog';
 import { getUserSettings } from './userSettings';
 import { format } from 'date-fns';
+import { MigrationDialog } from './MigrationDialog';
 
 export function App() {
   const [isDbReady, setIsDbReady] = useState(false);
@@ -55,6 +56,7 @@ export function App() {
     },
   );
   const [isExportDialogOpen, setExportDialogOpen] = useState(false);
+  const [isMigrationDialogOpen, setMigrationDialogOpen] = useState(false);
   const [isSettingDialogOpen, setSettingDialogOpen] = useState(false);
 
   const today = format(new Date(), 'yyyy-MM-dd');
@@ -241,6 +243,12 @@ export function App() {
                       Export CSV
                     </MenuItem>
                     <MenuItem
+                      icon={<DownloadIcon />}
+                      onClick={() => setMigrationDialogOpen(true)}
+                    >
+                      Data Migration
+                    </MenuItem>
+                    <MenuItem
                       icon={<SettingsIcon />}
                       onClick={() => setSettingDialogOpen(true)}
                     >
@@ -309,6 +317,10 @@ export function App() {
           exportCSV();
           setExportDialogOpen(false);
         }}
+      />
+      <MigrationDialog
+        isOpen={isMigrationDialogOpen}
+        onClose={() => setMigrationDialogOpen(false)}
       />
       <SettingDialog
         isOpen={isSettingDialogOpen}

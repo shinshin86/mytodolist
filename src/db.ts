@@ -17,7 +17,7 @@ import {
 } from './db/query_sql';
 
 let db: any = null;
-const DB_NAME = 'mytodolist';
+export const DB_NAME = 'mytodolist';
 
 export async function initDb() {
   if (db) return db;

@@ -35,6 +35,8 @@ jobs:
         uses: actions/configure-pages@v5
       - run: npm ci
       - run: npm run build
+        env:
+          VITE_DATA_MIGRATION_ENDPOINT: ${{ secrets.VITE_DATA_MIGRATION_ENDPOINT }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
